@@ -3,7 +3,7 @@
 import React from 'react';
 import {interpolate} from 'remotion';
 import {rand} from './anim';
-import {REAL_EXP} from './camera';
+import {REAL_EXP, TOP} from './camera';
 import {band, f1, smoothstep} from './engine';
 import {C, FONT, H, W} from './theme';
 
@@ -67,7 +67,28 @@ export const Stars: React.FC<{t: number; level: number; alpha: number}> = ({t, l
   );
 };
 
-/** Garis kecepatan saat lompatan besar dari sel ke Bumi. */
+/**
+ * Debu latar depan: partikel yang datang dari belakang kamera lalu menjauh ke pusat,
+ * kecepatannya mengikuti laju zoom → kesan terbang menembus ruang 3D.
+ */
+const DUST = Array.from({length: 70}, (_, i) => ({a: rand(i * 1.37) * Math.PI * 2, r: 0.25 + rand(i * 2.41) * 0.9, ph: rand(i * 3.77), s: 0.6 + rand(i * 4.13) * 0.8}));
+export const Dust: React.FC<{logW: number; glow: string; alpha: number}> = ({logW, glow, alpha}) =>
+  alpha <= 0 ? null : (
+    <g opacity={alpha}>
+      {DUST.map((d, i) => {
+        const u = (d.ph + logW * 0.32) % 1;
+        const z = 0.18 + u * 2.6;
+        const x = W / 2 + (Math.cos(d.a) * d.r * 900) / z;
+        const y = H / 2 + (Math.sin(d.a) * d.r * 520) / z;
+        const r = (d.s * 9) / z;
+        const o = smoothstep(0.18, 0.5, z) * (1 - smoothstep(1.8, 2.75, z));
+        if (o <= 0.01 || x < -60 || x > W + 60 || y < -60 || y > H + 60) return null;
+        return <circle key={i} cx={f1(x)} cy={f1(y)} r={f1(r * 3)} fill={`url(#glow-${i % 3 ? glow : 'white'})`} opacity={o * 0.55} />;
+      })}
+    </g>
+  );
+
+/** Garis kecepatan saat lompatan besar (daun → Bumi). */
 export const Streaks: React.FC<{t: number; alpha: number}> = ({t, alpha}) =>
   alpha <= 0 ? null : (
     <g opacity={alpha}>
@@ -97,14 +118,14 @@ export const Streaks: React.FC<{t: number; alpha: number}> = ({t, alpha}) =>
 // ---------------------------------------------------------------------------
 // HUD skala
 // ---------------------------------------------------------------------------
-const NAMES = ['INTI ATOM', 'ATOM', 'MOLEKUL', 'DNA', 'SEL', 'BUMI', 'TATA SURYA', 'GALAKSI'];
-const FIELDS = ['FISIKA PARTIKEL', 'FISIKA KUANTUM', 'KIMIA', 'BIOLOGI MOLEKULER', 'BIOLOGI SEL', 'ILMU KEBUMIAN', 'FISIKA · MEKANIKA', 'ASTROFISIKA'];
-export const LEVEL_COLORS = [C.pink, C.violet, C.mint, C.cyan, C.mint, C.blue, C.gold, C.violet];
+const NAMES = ['INTI ATOM', 'ATOM', 'MOLEKUL', 'DNA', 'SEL TUMBUHAN', 'DAUN', 'BUMI', 'TATA SURYA', 'GALAKSI'];
+const FIELDS = ['FISIKA PARTIKEL', 'FISIKA KUANTUM', 'KIMIA', 'BIOLOGI MOLEKULER', 'BIOLOGI SEL', 'BOTANI · FOTOSINTESIS', 'ILMU KEBUMIAN', 'FISIKA · MEKANIKA', 'ASTROFISIKA'];
+export const LEVEL_COLORS = [C.pink, C.violet, C.mint, C.cyan, C.mint, '#9be86a', C.blue, C.gold, C.violet];
 
 export const Hud: React.FC<{level: number; alpha: number}> = ({level, alpha}) => {
   if (alpha <= 0) return null;
-  const l = Math.min(7, Math.max(0, level));
-  const exp = Math.round(interpolate(l, [0, 1, 2, 3, 4, 5, 6, 7], REAL_EXP));
+  const l = Math.min(TOP, Math.max(0, level));
+  const exp = Math.round(interpolate(l, REAL_EXP.map((_, i) => i), REAL_EXP));
   const idx = Math.round(l);
   const labelO = 1 - smoothstep(0.3, 0.5, Math.abs(l - idx));
   const col = LEVEL_COLORS[idx];
