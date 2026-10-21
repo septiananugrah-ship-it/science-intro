@@ -29,7 +29,9 @@ jobs:
       - run: npm ci
       - run: npx remotion browser ensure
       - name: Siapkan props
-        run: node -e "require('fs').writeFileSync('props.json', JSON.stringify({name: process.env.NAME, tagline: process.env.TAGLINE, hud: process.env.HUD === 'true', volume: 1}))" && cat props.json
+        run: |
+          node -e "require('fs').writeFileSync('props.json', JSON.stringify({name: process.env.NAME, tagline: process.env.TAGLINE, hud: process.env.HUD === 'true', volume: 1}))"
+          cat props.json
         env:
           NAME: ${{ inputs.name }}
           TAGLINE: ${{ inputs.tagline }}
