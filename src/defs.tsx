@@ -18,6 +18,8 @@ const SPHERES: Record<string, [string, string, string]> = {
   uranus: ['#e2fffc', '#76e3e0', '#0f3b3b'],
   neptune: ['#dbe9ff', '#4f7dff', '#0c194a'],
   mito: ['#ffe2b8', '#ff9a4a', '#5a2408'],
+  nitrogen: ['#dce6ff', '#5b7cff', '#101a55'],
+  chloro: ['#eaffc8', '#4fc95a', '#0d3d16'],
 };
 
 /** Cahaya lembut: warna penuh di tengah → transparan. */
@@ -117,6 +119,46 @@ export const Defs: React.FC = () => (
       <stop offset="0.5" stopColor={C.violet} stopOpacity="0.5" />
       <stop offset="1" stopColor={C.gold} stopOpacity="0.9" />
     </linearGradient>
+    <linearGradient id="wallfill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stopColor="#3fbf6a" stopOpacity="0.32" />
+      <stop offset="0.5" stopColor="#1f7a45" stopOpacity="0.18" />
+      <stop offset="1" stopColor="#3fbf6a" stopOpacity="0.3" />
+    </linearGradient>
+    <radialGradient id="vacuole" cx="0.4" cy="0.38" r="0.7">
+      <stop offset="0" stopColor="#bff0ff" stopOpacity="0.35" />
+      <stop offset="0.7" stopColor="#4fb8ff" stopOpacity="0.16" />
+      <stop offset="1" stopColor="#4fb8ff" stopOpacity="0.32" />
+    </radialGradient>
+    <linearGradient id="leaffill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stopColor="#0d4d24" />
+      <stop offset="0.45" stopColor="#2f9e4e" />
+      <stop offset="0.55" stopColor="#2f9e4e" />
+      <stop offset="1" stopColor="#0d4d24" />
+    </linearGradient>
+    <radialGradient id="leafglow" cx="0.42" cy="0.45" r="0.6">
+      <stop offset="0" stopColor="#f4ff9a" stopOpacity="0.5" />
+      <stop offset="0.5" stopColor="#9be86a" stopOpacity="0.18" />
+      <stop offset="1" stopColor="#9be86a" stopOpacity="0" />
+    </radialGradient>
+    <radialGradient id="dew" cx="0.45" cy="0.4" r="0.6">
+      <stop offset="0" stopColor="#ffffff" stopOpacity="0.05" />
+      <stop offset="0.75" stopColor="#d8fbff" stopOpacity="0.25" />
+      <stop offset="0.95" stopColor="#ffffff" stopOpacity="0.85" />
+      <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
+    </radialGradient>
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stopColor="#fffbe0" stopOpacity="1" />
+      <stop offset="1" stopColor="#fffbe0" stopOpacity="0" />
+    </linearGradient>
+    <linearGradient id="rimgrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stopColor="#ffffff" stopOpacity="0.95" />
+      <stop offset="0.3" stopColor="#9fe3ff" stopOpacity="0.6" />
+      <stop offset="0.6" stopColor={C.cyan} stopOpacity="0.08" />
+      <stop offset="1" stopColor={C.cyan} stopOpacity="0" />
+    </linearGradient>
+    <filter id="cloudblur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" />
+    </filter>
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="10" />
     </filter>

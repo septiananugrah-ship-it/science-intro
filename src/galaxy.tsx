@@ -25,7 +25,7 @@ const ARM_COLS = [C.blue, C.cyan, '#9fb8ff', C.violet, '#ffffff'].map(hex);
 
 const STARS: Star[] = (() => {
   const out: Star[] = [];
-  const nArm = 560;
+  const nArm = 1000;
   for (let arm = 0; arm < 2; arm++) {
     for (let i = 0; i < nArm; i++) {
       const sd = arm * 1000 + i;
@@ -36,7 +36,7 @@ const STARS: Star[] = (() => {
       out.push({
         r,
         th,
-        size: 1.1 + rand(sd * 4.3) * 1.6,
+        size: 0.9 + rand(sd * 4.3) ** 2 * 2.0,
         col: pink ? hex(C.pink) : ARM_COLS[Math.floor(rand(sd * 6.7) * ARM_COLS.length)],
         arm,
         u: clamp01(u),
@@ -45,7 +45,7 @@ const STARS: Star[] = (() => {
       });
     }
   }
-  for (let i = 0; i < 260; i++) {
+  for (let i = 0; i < 450; i++) {
     const sd = 5000 + i;
     const r = Math.abs(gauss(sd)) * 80;
     out.push({
@@ -59,7 +59,7 @@ const STARS: Star[] = (() => {
       delay: rand(sd * 6.1) * 0.1,
     });
   }
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < 520; i++) {
     const sd = 9000 + i;
     out.push({
       r: 70 + rand(sd) * 390,
@@ -75,12 +75,28 @@ const STARS: Star[] = (() => {
   return out;
 })();
 
-const CLOUDS = Array.from({length: 90}, (_, i) => {
+const CLOUDS = Array.from({length: 150}, (_, i) => {
   const arm = i % 2;
   const u = rand(i * 2.3);
-  const r = 60 + u * 370;
-  return {r, th: armAngle(r) + arm * Math.PI + gauss(i * 4.1) * 0.15, size: 34 + rand(i * 3.1) * 40, c: ['violet', 'blue', 'pink', 'cyan'][i % 4]};
+  const r = 60 + u * 380;
+  const hii = i % 5 === 0;
+  return {
+    r,
+    th: armAngle(r) + arm * Math.PI + gauss(i * 4.1) * 0.15,
+    size: hii ? 8 + rand(i * 3.1) * 10 : 34 + rand(i * 3.1) * 44,
+    c: hii ? 'pink' : ['violet', 'blue', 'cyan', 'violet'][i % 4],
+    o: hii ? 0.7 : 0.17,
+  };
 });
+/** Lajur debu gelap di sisi dalam tiap lengan. */
+const dustLane = (arm: number, t: number) =>
+  Array.from({length: 60}, (_, i) => {
+    const r = 55 + i * 6;
+    const [x, y] = galaxyXY(r, armAngle(r) + arm * Math.PI - 0.16, t);
+    return `${i ? 'L' : 'M'}${f1(x)},${f1(y)}`;
+  }).join('');
+/** Galaksi-galaksi jauh di latar (ruang layar). */
+const FAR = Array.from({length: 14}, (_, i) => ({x: 80 + rand(i * 1.7) * 1760, y: 60 + rand(i * 2.9) * 960, r: 6 + rand(i * 3.3) * 10, rot: rand(i * 4.4) * 180, c: ['violet', 'gold', 'blue', 'pink'][i % 4]}));
 
 export type GalaxyProps = {
   t: number;
@@ -108,15 +124,22 @@ export const Galaxy: React.FC<GalaxyProps> = ({t, x, y, s, a, inner, morphStart,
   const tilt = (GALAXY.tilt * 180) / Math.PI;
   return (
     <g opacity={a}>
+      {FAR.map((g, i) => (
+        <ellipse key={i} cx={g.x} cy={g.y} rx={g.r} ry={g.r * 0.4} transform={`rotate(${f1(g.rot)} ${g.x} ${g.y})`} fill={`url(#glow-${g.c})`} opacity={0.5 * cloudsFade} />
+      ))}
       <g transform={`translate(${f1(x)} ${f1(y)}) scale(${s.toPrecision(6)})`}>
         {cloudsFade > 0
           ? CLOUDS.map((c, i) => {
               const [cx, cy] = galaxyXY(c.r, c.th, t);
-              return <circle key={i} cx={f1(cx)} cy={f1(cy)} r={c.size} fill={`url(#glow-${c.c})`} opacity={0.16 * cloudsFade} />;
+              return <circle key={i} cx={f1(cx)} cy={f1(cy)} r={c.size} fill={`url(#glow-${c.c})`} opacity={c.o * cloudsFade} />;
             })
           : null}
+        {cloudsFade > 0
+          ? [0, 1].map((arm) => <path key={arm} d={dustLane(arm, t)} fill="none" stroke="#04020c" strokeWidth={16} strokeLinecap="round" opacity={0.45 * cloudsFade} filter="url(#soft)" />)
+          : null}
         <g transform={`rotate(${f1(tilt)})`}>
-          <ellipse rx={175} ry={175 * GALAXY.incl} fill="url(#core)" opacity={0.95 * (1 - 0.75 * smoothstep(0.1, 1.0, m))} />
+          <ellipse rx={200} ry={200 * GALAXY.incl} fill="url(#core)" opacity={1 - 0.75 * smoothstep(0.1, 1.0, m)} />
+          <ellipse rx={60} ry={60 * GALAXY.incl} fill="url(#glow-white)" opacity={0.8 * (1 - smoothstep(0.1, 0.8, m))} />
         </g>
         {/* placeholder Matahari: bintang terang tempat tata surya tadi */}
         <g opacity={(1 - inner) * cloudsFade}>

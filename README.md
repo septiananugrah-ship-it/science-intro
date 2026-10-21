@@ -1,6 +1,6 @@
 # SCIENTIAN — intro sains universal
 
-Intro 11 detik untuk video edukasi apa pun: matematika, fisika, kimia, biologi, sampai astronomi. Dibuat dengan [Remotion](https://remotion.dev).
+Intro 18 detik untuk video edukasi apa pun: matematika, fisika, kimia, biologi, sampai astronomi. Dibuat dengan [Remotion](https://remotion.dev).
 2560 × 1440 (2K) · 30 atau 60 FPS · musik & efek suara orisinal.
 
 ## Alur
@@ -9,16 +9,19 @@ Kamera **zoom keluar tanpa putus**, dari partikel terkecil sampai galaksi. Tiap 
 
 | Detik | Tingkat | Bidang | Skala (HUD) |
 |---|---|---|---|
-| 0,0 | Partikel berkumpul menjadi **inti atom** karbon (proton, neutron, dan kuark) | fisika partikel | 10⁻¹⁵ m |
-| 1,0 | **Atom**: awan orbital yang berkedip-kedip (probabilitas kuantum) | fisika kuantum | 10⁻¹⁰ m |
-| 2,0 | Atom itu ternyata satu karbon di **molekul benzena** yang bergetar | kimia | 10⁻⁹ m |
-| 3,0 | Benzena itu ternyata cincin basa di **DNA** | biologi molekuler | 10⁻⁸ m |
-| 3,9 | DNA itu ternyata ada di inti sebuah **sel** | biologi | 10⁻⁵ m |
-| 4,6 | Sel itu ternyata titik di Bandung, di **Bumi** | ilmu kebumian | 10⁷ m |
-| 5,4 | Bumi di **tata surya** | fisika | 10¹³ m |
-| 6,3 | Tata surya di **galaksi** spiral | astrofisika | 10²¹ m |
-| 6,9 | Dua lengan galaksi mengalir menjadi **logo S** | | |
-| 8,4 | **SCIENTIAN** dan *Explore Science with Yayan* | | |
+| 0,0 | Plasma kuark-gluon berpusar lalu mengembun menjadi **inti atom** karbon, dengan kilatan | fisika partikel | 10⁻¹⁵ m |
+| 3,0 | **Atom**: awan orbital yang berkedip; elektron melompat dan memancarkan **foton** | fisika kuantum | 10⁻¹⁰ m |
+| 4,3 | Atom itu satu karbon di **benzena** yang berputar 3D di tengah "sup" molekul | kimia | 10⁻⁹ m |
+| 5,6 | Benzena itu cincin basa di **DNA**, yang tampil dalam perspektif | biologi molekuler | 10⁻⁸ m |
+| 6,9 | DNA itu ada di inti **sel tumbuhan** dengan kloroplas yang mengalir | biologi sel | 10⁻⁵ m |
+| 8,2 | Sel itu satu dari ribuan sel sebuah **daun** yang urat fraktalnya berdenyut cahaya | botani | 10⁻¹ m |
+| 9,7 | Daun itu ada di Bandung, di **Bumi** (Matahari terbit di tepinya, awan, lampu kota, Bulan) | ilmu kebumian | 10⁷ m |
+| 11,1 | Bumi di **tata surya** (semburan Matahari, jejak planet, komet) | fisika | 10¹³ m |
+| 12,5 | Tata surya di **galaksi** spiral dengan nebula dan lajur debu | astrofisika | 10²¹ m |
+| 13,0 | Dua lengan galaksi mengalir menjadi **logo S** | | |
+| 14,5 | **SCIENTIAN** dan *Explore Science with Yayan* | | |
+
+Kamera berguling pelan, zoom melambat di setiap tingkat, dan partikel latar depan melintas sehingga terasa seperti terbang menembus ruang 3D.
 
 Matematika muncul di sepanjang intro dalam tiga bentuk:
 
@@ -33,7 +36,7 @@ Matematika muncul di sepanjang intro dalam tiga bentuk:
    - **nama** di bawah logo,
    - **tagline**,
    - **HUD**: matikan untuk versi yang lebih bersih, tanpa angka skala dan label rumus.
-3. Setelah ±10 menit, unduh artefak **scientian-intro** di halaman run tersebut. Isinya:
+3. Setelah ±15 menit, unduh artefak **scientian-intro** di halaman run tersebut. Isinya:
    - `scientian-intro-2k-30fps.mp4`: untuk digabung ke video 30 FPS, misalnya video kimia.
    - `scientian-intro-2k-60fps.mp4`: versi lebih mulus untuk video 60 FPS.
    - `scientian-intro-1080p-30fps.mp4`
@@ -62,7 +65,8 @@ Di Linux tanpa Chrome lengkap: `CHROME_PATH=/path/ke/headless_shell npm run rend
 
 ```
 src/camera.ts     kamera "Powers of Ten": rasio antar-tingkat, posisi bersarang, zoom spline
-src/layers.tsx    inti atom, atom, benzena, DNA, sel, Bumi, tata surya
+src/micro.tsx     inti atom (kuark & gluon), atom (+ foton), benzena 3D, DNA perspektif
+src/macro.tsx     sel tumbuhan, daun, Bumi, tata surya
 src/galaxy.tsx    galaksi spiral + morph bintang → logo S
 src/logo.tsx      geometri logo S (dua busur spiral) + orbit
 src/overlay.tsx   grid matematika, bintang, garis kecepatan, HUD skala, label rumus
