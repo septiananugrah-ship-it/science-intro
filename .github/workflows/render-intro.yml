@@ -1,0 +1,58 @@
+name: Render Intro SCIENTIAN 2K
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Nama channel di bawah logo (kosongkan untuk menyembunyikan)'
+        required: false
+        default: 'SCIENTIAN'
+      tagline:
+        description: 'Tagline paling bawah'
+        required: false
+        default: 'Explore Science with Yayan'
+      hud:
+        description: 'Tampilkan HUD skala (10ⁿ m) & label rumus selama zoom'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx remotion browser ensure
+      - name: Siapkan props
+        run: node -e "require('fs').writeFileSync('props.json', JSON.stringify({name: process.env.NAME, tagline: process.env.TAGLINE, hud: process.env.HUD === 'true', volume: 1}))" && cat props.json
+        env:
+          NAME: ${{ inputs.name }}
+          TAGLINE: ${{ inputs.tagline }}
+          HUD: ${{ inputs.hud }}
+      - name: Render 2K 30 FPS
+        run: npx remotion render src/index.ts Intro2K out/scientian-intro-2k-30fps.mp4 --props=props.json --codec=h264 --crf=16 --audio-bitrate=320k
+      - name: Render 2K 60 FPS
+        run: npx remotion render src/index.ts Intro2K60 out/scientian-intro-2k-60fps.mp4 --props=props.json --codec=h264 --crf=16 --audio-bitrate=320k
+      - name: Render 1080p 30 FPS
+        run: npx remotion render src/index.ts Intro out/scientian-intro-1080p-30fps.mp4 --props=props.json --codec=h264 --crf=17 --audio-bitrate=320k
+      - name: Logo PNG transparan
+        run: npx remotion still src/index.ts Logo out/scientian-logo-transparan.png --image-format=png
+      - name: Periksa hasil
+        run: |
+          for f in out/*.mp4; do
+            echo "$f: $(npx remotion ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,nb_frames -of csv=p=0 "$f") · durasi $(npx remotion ffprobe -v error -show_entries format=duration -of csv=p=0 "$f") dtk"
+          done
+          ls -la out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scientian-intro
+          path: |
+            out/*.mp4
+            out/*.png
+          retention-days: 30
+          compression-level: 0
