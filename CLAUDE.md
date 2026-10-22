@@ -14,7 +14,7 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 |---|---|
 | `septiananugrah-ship-it/Claude-Video-Kimia` | Video "Sidik Jari Molekul" — Modul 4 Gerak Vibrasi, ±16 menit, 2K, narasi ElevenLabs Bagas + versi tanpa narasi. **Template untuk video berikutnya.** |
 | `septiananugrah-ship-it/video-atom-hidrogen` | Video Modul 6 "Atom Hidrogen", ±19 menit, 2K, narasi Bagas + versi tanpa narasi (subtitle tetap ada); rumus `Formula`/`Frac`, skrip QA `qa-audit`/`qa-moments`/`check-cues`. |
-| `septiananugrah-ship-it/video-partikel-kotak` | Video Modul 3 "Partikel dalam Kotak", ±21 menit (estimasi), 2K, 17 bab; komponen `Heatmap2D`, `BoxCube`, `Walls`, `Vial`, `Chain`; skrip `contact.py` (lembar kontak QA). |
+| `septiananugrah-ship-it/video-partikel-kotak` | Video Modul 3 "Partikel dalam Kotak", ±22 menit, 2K, 17 bab, sudah di-polish; komponen `Mesh3D`/`Surface3D` (permukaan 3D), `PacketSim` + `scripts/sim-packet.py` (simulasi Schrödinger bergantung waktu), `ScaleHud`/`ZoomGrid` (zoom ala intro), `Heatmap2D` halus; skrip `contact.py` (lembar kontak QA); catatan `naskah/AUDIT.md`. |
 | `septiananugrah-ship-it/science-intro` (repo ini) | Intro SCIENTIAN 18 dtk (zoom inti atom → galaksi → logo S), materi kuliah di `materi/`, skill `.claude/skills/video-sains/`. |
 | `septiananugrah-ship-it/video-kimia` | Versi lama buatan ChatGPT (pembanding, kualitas gerak kurang). |
 
@@ -48,6 +48,11 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutny
 - `filter="url(#glow)"` pada `<line>` tegak/datar (kotak batas lebar 0) membuat garis **lenyap** → jangan beri filter pada garis lurus; pakai garis lebar transparan sebagai cahaya.
 - Hemat token saat QA: gabungkan still menjadi lembar kontak (`python3 scripts/contact.py out/audit out/sheets`, repo video-partikel-kotak) lalu baca satu gambar per 1–2 adegan.
 - Label SVG tidak mengenal `_`/subskrip HTML → pakai `<tspan baselineShift="sub">`; di kartu HTML pakai `Sub`/`Sup`.
+- Kartu `Formula` dengan wadah `display:flex` membuat `<sub>` **naik** (vertical-align diabaikan pada item flex) → isi rumus harus baris inline (`textAlign:center`, `whiteSpace:nowrap`). Cek juga repo lama yang memakai komponen sama.
+- Whisper small/medium menulis "pi" (π) sebagai "P" dan small sering mendengar "penerowongan" → "penerawangan": alarm palsu; putuskan rekam ulang hanya bila medium juga salah.
+- Angka ukur dari luar modul (λmaks pewarna, penghalang NH₃, dll.) dicek ke sumber primer/katalog **sebelum** narasi direkam; mengubahnya belakangan berarti rekam ulang baris.
+- Peta panas dari ribuan `<rect>` tampak kotak-kotak → buat gambar sekali lewat canvas (`toDataURL`) lalu `<image preserveAspectRatio="none">`.
+- Tanda ⟨ ⟩ tidak ada di font serif/mono label SVG (tampil seperti kurung) → tulis "rata-rata p" atau taruh di kartu HTML.
 
 ## Aturan untuk sesi baru
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
