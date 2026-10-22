@@ -34,3 +34,12 @@ Lihat `materi/RINGKASAN.md`. Modul 4 sudah jadi video. Saran berikutnya: **Modul
 - `-shortest` memotong frame → apad + atrim ke durasi pasti.
 - Efek `mix-blend-mode` di dalam grup bertransformasi tampil sebagai kotak → pakai mask pada salinan teks.
 - `: ` di dalam `run:` YAML tanpa blok `|` membuat workflow tidak valid.
+
+## Aturan untuk sesi baru
+- Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
+- Untuk video baru pakai skill `video-sains`. Repo video baru dibuat pengguna; minta namanya lalu `add_repo`.
+- Jawab ringkas dalam bahasa Indonesia; beri link GitHub yang bisa langsung diketuk di iPad.
+- Hemat token: baca bab PDF seperlunya, jangan tempel isi PDF di chat.
+- Setelah selesai: perbarui status di `materi/RINGKASAN.md` dan tambahkan pelajaran baru ke bagian "Pelajaran" di atas.
+- Jangan menghapus repo/berkas pengguna tanpa konfirmasi; jangan pernah meminta atau menampilkan kunci API.
+- Pengguna mempertimbangkan menghapus repo lama (video-kimia, Intro-Video-Edukasi, video-remotion, video-edukasi-remotion) — jangan bergantung padanya.
