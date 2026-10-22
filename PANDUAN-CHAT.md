@@ -33,4 +33,4 @@ Kirim isi `CLAUDE.md` dan `.claude/skills/video-sains/SKILL.md` sebagai pesan pe
 
 > /klip-pendek bikin klip dari momen terbaik video-atom-hidrogen (garis spektrum Balmer) di repo klip-tiktok
 
-> /klip-pendek bikin video afiliasi 40 detik: edukasi tentang [masalah], lalu produk [nama produk + link/etalase]. Klaim produk ambil dari kemasan/halaman resmi.
+> /klip-pendek bikin video afiliasi 40 detik: kenapa keripik bisa renyah, lalu produk [nama camilan + link/etalase]. Info produk ambil dari kemasan/halaman resmi.
