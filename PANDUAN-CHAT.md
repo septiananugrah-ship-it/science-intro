@@ -27,3 +27,10 @@ Kirim isi `CLAUDE.md` dan `.claude/skills/video-sains/SKILL.md` sebagai pesan pe
 - Satu chat = satu pekerjaan. Kalau chat sudah sangat panjang, buka chat baru — konteksnya tetap aman di repo.
 - Unggah file (PDF, gambar) lewat GitHub (Add file → Upload files), bukan ditempel di chat.
 - Tulis permintaan singkat; Claude sudah tahu gaya & aturannya dari `CLAUDE.md`.
+
+## Video pendek TikTok / Reels
+> /klip-pendek bikin klip edukasi 30 detik tentang [topik] di repo klip-tiktok
+
+> /klip-pendek bikin klip dari momen terbaik video-atom-hidrogen (garis spektrum Balmer) di repo klip-tiktok
+
+> /klip-pendek bikin video afiliasi 40 detik: edukasi tentang [masalah], lalu produk [nama produk + link/etalase]. Klaim produk ambil dari kemasan/halaman resmi.
