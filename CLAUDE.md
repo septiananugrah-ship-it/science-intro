@@ -14,11 +14,12 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 |---|---|
 | `septiananugrah-ship-it/Claude-Video-Kimia` | Video "Sidik Jari Molekul" — Modul 4 Gerak Vibrasi, ±16 menit, 2K, narasi ElevenLabs Bagas + versi tanpa narasi. **Template untuk video berikutnya.** |
 | `septiananugrah-ship-it/video-atom-hidrogen` | Video Modul 6 "Atom Hidrogen", ±19 menit, 2K, narasi Bagas + versi tanpa narasi (subtitle tetap ada); rumus `Formula`/`Frac`, skrip QA `qa-audit`/`qa-moments`/`check-cues`. |
+| `septiananugrah-ship-it/video-partikel-kotak` | Video Modul 3 "Partikel dalam Kotak", ±21 menit (estimasi), 2K, 17 bab; komponen `Heatmap2D`, `BoxCube`, `Walls`, `Vial`, `Chain`; skrip `contact.py` (lembar kontak QA). |
 | `septiananugrah-ship-it/science-intro` (repo ini) | Intro SCIENTIAN 18 dtk (zoom inti atom → galaksi → logo S), materi kuliah di `materi/`, skill `.claude/skills/video-sains/`. |
 | `septiananugrah-ship-it/video-kimia` | Versi lama buatan ChatGPT (pembanding, kualitas gerak kurang). |
 
 ## Status materi
-Lihat `materi/RINGKASAN.md`. Modul 4 dan Modul 6 sudah jadi video. Saran berikutnya: **Modul 3** (partikel dalam kotak), cadangan Modul 5 (rotasi).
+Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutnya: **Modul 5** (rotasi), cadangan Modul 1 (pengantar).
 
 ## Cara kerja yang sudah terbukti
 - Remotion 4.0.536, React; semua animasi dari frame (`interpolate`), tanpa animasi CSS. Desain 1920×1080, versi 2K = komposisi pembungkus skala 4/3 (vektor tetap tajam).
@@ -44,6 +45,9 @@ Lihat `materi/RINGKASAN.md`. Modul 4 dan Modul 6 sudah jadi video. Saran berikut
 - Whisper lokal: `faster-whisper` + decode ffmpeg ke numpy (PyAV versi baru error). Model `small` banyak alarm palsu → cek ulang baris mencurigakan dengan `medium`.
 - QA paling efektif: `qa-audit.mjs` (awal/tengah/akhir + transisi) lalu `qa-moments.mjs adegan:baris:offset` untuk momen kunci (kartu rumus, foton, zoom).
 - Proses kerja bisa dimulai ulang di tengah tunggu panjang → commit & push WIP sebelum render lama.
+- `filter="url(#glow)"` pada `<line>` tegak/datar (kotak batas lebar 0) membuat garis **lenyap** → jangan beri filter pada garis lurus; pakai garis lebar transparan sebagai cahaya.
+- Hemat token saat QA: gabungkan still menjadi lembar kontak (`python3 scripts/contact.py out/audit out/sheets`, repo video-partikel-kotak) lalu baca satu gambar per 1–2 adegan.
+- Label SVG tidak mengenal `_`/subskrip HTML → pakai `<tspan baselineShift="sub">`; di kartu HTML pakai `Sub`/`Sup`.
 
 ## Aturan untuk sesi baru
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
