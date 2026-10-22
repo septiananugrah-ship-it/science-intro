@@ -13,11 +13,12 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 | Repo | Isi |
 |---|---|
 | `septiananugrah-ship-it/Claude-Video-Kimia` | Video "Sidik Jari Molekul" — Modul 4 Gerak Vibrasi, ±16 menit, 2K, narasi ElevenLabs Bagas + versi tanpa narasi. **Template untuk video berikutnya.** |
+| `septiananugrah-ship-it/video-atom-hidrogen` | Video Modul 6 "Atom Hidrogen", ±19 menit, 2K, narasi Bagas + versi tanpa narasi (subtitle tetap ada); rumus `Formula`/`Frac`, skrip QA `qa-audit`/`qa-moments`/`check-cues`. |
 | `septiananugrah-ship-it/science-intro` (repo ini) | Intro SCIENTIAN 18 dtk (zoom inti atom → galaksi → logo S), materi kuliah di `materi/`, skill `.claude/skills/video-sains/`. |
 | `septiananugrah-ship-it/video-kimia` | Versi lama buatan ChatGPT (pembanding, kualitas gerak kurang). |
 
 ## Status materi
-Lihat `materi/RINGKASAN.md`. Modul 4 sudah jadi video. Saran berikutnya: **Modul 6 Atom Hidrogen**, cadangan Modul 3 (partikel dalam kotak).
+Lihat `materi/RINGKASAN.md`. Modul 4 dan Modul 6 sudah jadi video. Saran berikutnya: **Modul 3** (partikel dalam kotak), cadangan Modul 5 (rotasi).
 
 ## Cara kerja yang sudah terbukti
 - Remotion 4.0.536, React; semua animasi dari frame (`interpolate`), tanpa animasi CSS. Desain 1920×1080, versi 2K = komposisi pembungkus skala 4/3 (vektor tetap tajam).
@@ -34,6 +35,15 @@ Lihat `materi/RINGKASAN.md`. Modul 4 sudah jadi video. Saran berikutnya: **Modul
 - `-shortest` memotong frame → apad + atrim ke durasi pasti.
 - Efek `mix-blend-mode` di dalam grup bertransformasi tampil sebagai kotak → pakai mask pada salinan teks.
 - `: ` di dalam `run:` YAML tanpa blok `|` membuat workflow tidak valid.
+- Secret GitHub berlaku **per repo**: pasang `ELEVENLABS_API_KEY` di setiap repo video baru sebelum menjalankan `voiceover.yml` (tanpa itu langkah TTS gagal dengan kunci kosong).
+- `wordOf(i, 'kata')` mengambil kemunculan **pertama** ("tiga" di "tiga belas" ≠ "tingkat tiga") → pakai `wordOf(i, kata, n)` dan jalankan `scripts/check-cues.ts` (Modul 6) untuk mendeteksi kata ganda.
+- Komponen HTML (`Card`, `Badge`, `Formula`) di dalam `<Stage>` (SVG) tidak tampil → letakkan di luar `<Stage>`.
+- Rumus: pakai `Formula` + `Frac` (≥ 56 px, pecahan bertumpuk, satu kartu per momen di satu "slot"); jangan pakai garis miring untuk pecahan.
+- Ukuran awan orbital harus memakai skala px/a yang sama, kalau tidak 1s tampak sebesar 2s.
+- Mengubah teks satu baris narasi → hapus `public/voiceover/<kode>.mp3` agar dibuat ulang; workflow hanya membuat baris yang belum ada.
+- Whisper lokal: `faster-whisper` + decode ffmpeg ke numpy (PyAV versi baru error). Model `small` banyak alarm palsu → cek ulang baris mencurigakan dengan `medium`.
+- QA paling efektif: `qa-audit.mjs` (awal/tengah/akhir + transisi) lalu `qa-moments.mjs adegan:baris:offset` untuk momen kunci (kartu rumus, foton, zoom).
+- Proses kerja bisa dimulai ulang di tengah tunggu panjang → commit & push WIP sebelum render lama.
 
 ## Aturan untuk sesi baru
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
