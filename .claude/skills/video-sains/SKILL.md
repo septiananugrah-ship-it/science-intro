@@ -7,6 +7,14 @@ description: Membuat video edukasi Kimia Kuantum (atau sains lain) dengan Remoti
 
 Pengguna: mahasiswa S1 Kimia UNESA, berbahasa Indonesia, menonton & mengunduh lewat iPad. Jawab dalam bahasa Indonesia, singkat, langkah jelas. Hemat token: jangan membaca seluruh PDF.
 
+## 0. Standar kualitas (wajib, berdasarkan masukan pengguna)
+- Modul hanya **referensi**, bukan naskah. Tulis cerita yang memikat dan mudah dipahami seperti video "Sidik Jari Molekul" (hook → pertanyaan → jawaban visual). Boleh menambah fakta, contoh, dan aplikasi dari sumber luar yang **nyata dan dapat dicek** (NIST, IUPAC, buku teks Atkins/Levine/McQuarrie, jurnal) — sebutkan di layar rujukan; jangan mengarang data.
+- **Subtitle kata-per-kata wajib ada** di semua versi (pakai `Captions` dari Claude-Video-Kimia), kecuali pengguna minta dimatikan.
+- **Tata letak rapi**: tiap adegan pakai grid yang jelas (mis. kiri visual / kanan rumus, atau visual di tengah + kartu rumus di bawah), margin aman ≥ 80 px, jarak antar-elemen ≥ 32 px. Tidak boleh ada teks yang menabrak garis, kartu, label, atau subtitle. Zona bawah 180 px dicadangkan untuk subtitle.
+- **Rumus** ditampilkan besar & jelas (≥ 48 px, subskrip terbaca), satu rumus utama per momen, muncul bertahap mengikuti narasi; jangan menumpuk banyak kartu.
+- Visual harus **bergerak menjelaskan** (orbital berputar, elektron melompat memancarkan foton, garis spektrum muncul), bukan diagram diam. Hindari layar setengah kosong.
+- QA: setiap still diperiksa khusus untuk tabrakan teks/elemen dan keterbacaan sebelum render final.
+
 ## 1. Pilih materi
 - Baca `materi/RINGKASAN.md` dulu (daftar modul, isi pokok, status, ide visual).
 - Ekstrak HANYA bab yang dipakai: `pdftotext -layout -f <hal> -l <hal> materi/Modul_N_*.pdf -` (nomor halaman ada di daftar isi modul).
