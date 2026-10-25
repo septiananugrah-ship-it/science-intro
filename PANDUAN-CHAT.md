@@ -2,6 +2,10 @@
 
 Buka chat baru di Claude Code **dengan repo `science-intro`** (dan repo video yang mau dikerjakan). Claude otomatis membaca `CLAUDE.md`, jadi tidak perlu menjelaskan ulang. Tinggal salin salah satu perintah di bawah.
 
+## Aturan tetap
+- Claude tidak pernah menjalankan workflow GitHub Actions; kamu yang menekan **Run workflow**.
+- Narasi memakai suara klon ElevenLabs milikmu (bukan Bagas).
+
 ## Bikin video baru
 > /video-sains bikin video Modul 6 atom hidrogen di repo video-atom-hidrogen
 
@@ -14,11 +18,11 @@ Ganti nomor modul & nama repo sesuai kebutuhan. Buat repo kosongnya dulu di GitH
 > Di repo Claude-Video-Kimia, perbaiki adegan [nama/menit ke-...]: [apa yang kurang]. Lalu render ulang 2K.
 
 ## Ganti nama/tagline intro
-> Jalankan workflow Render Intro SCIENTIAN 2K dengan nama "..." dan tagline "...".
-(Atau sendiri: tab Actions → Render Intro SCIENTIAN 2K → Run workflow.)
+> Siapkan render intro SCIENTIAN 2K dengan nama "..." dan tagline "...", lalu beri aku isian & link-nya.
+Lalu tekan sendiri: tab Actions → Render Intro SCIENTIAN 2K → Run workflow. (Claude tidak menjalankannya.)
 
 ## Versi tanpa narasi (untuk dubbing sendiri)
-> Render video [repo] tanpa narasi Bagas, musik saja.
+> Siapkan render video [repo] tanpa narasi, musik saja (aku yang tekan Run workflow).
 
 ## Ganti AI / akun
 Kirim isi `CLAUDE.md` dan `.claude/skills/video-sains/SKILL.md` sebagai pesan pertama, lalu minta seperti biasa.

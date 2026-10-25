@@ -24,11 +24,11 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutny
 ## Cara kerja yang sudah terbukti
 - Remotion 4.0.536, React; semua animasi dari frame (`interpolate`), tanpa animasi CSS. Desain 1920×1080, versi 2K = komposisi pembungkus skala 4/3 (vektor tetap tajam).
 - Render di **GitHub Actions** (workflow_dispatch harus ada di `main`): potong paralel → gabung `ffmpeg -c copy` → audio dibangun ffmpeg (apad/atrim tepat durasi). Artefak diunduh pengguna.
-- Narasi: ElevenLabs suara **Bagas**, model `eleven_v4`, `language_code: id`. Kunci di **secret GitHub `ELEVENLABS_API_KEY`** (akun berlangganan Starter; voice library butuh berbayar). Jangan pernah minta/menampilkan kunci di chat. Durasi & jeda tiap baris diukur (silencedetect) → `src/voiceover.ts` → subtitle & animasi menempel ke jeda nyata.
+- Narasi (video BARU): ElevenLabs dengan **suara klon Yayan sendiri** (bukan Bagas; Bagas hanya dipakai di video lama Modul 3, 4, 6), model `eleven_v4`, `language_code: id`. Voice ID suara klon diambil dari akun ElevenLabs Yayan; jangan mengarang voice ID, tanyakan jika belum ada di skrip/secret. Kunci di **secret GitHub `ELEVENLABS_API_KEY`** (akun berlangganan Starter). Jangan pernah minta/menampilkan kunci di chat. Durasi & jeda tiap baris diukur (silencedetect) → `src/voiceover.ts` → subtitle & animasi menempel ke jeda nyata.
 - Musik/SFX disintesis numpy + ffmpeg loudnorm (tanpa sampel berlisensi).
 - QA: still per adegan + cek transisi; Whisper untuk cek pengucapan istilah.
 - Lokal tanpa Chrome lengkap: `CHROME_PATH=.../chrome-headless-shell` .
-- Alur git: kerja di branch → PR → merge ke `main` → jalankan workflow → beri link run.
+- Alur git: kerja di branch → PR → merge ke `main` → **berhenti**. Claude TIDAK menjalankan workflow (tidak `gh workflow run`, tidak dispatch API). Yayan sendiri yang menekan **Run workflow** di tab Actions. Setelah merge, beri Yayan link langsung ke halaman workflow + isian yang perlu diisi, lalu tunggu; setelah Yayan bilang sudah dijalankan, baru boleh memantau run dan memberi link artefak.
 
 ## Pelajaran (hindari)
 - Adegan bertumpuk saat transisi terlihat jelek → pakai zoom-through berurutan + kilatan singkat.
@@ -60,5 +60,6 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutny
 - Jawab ringkas dalam bahasa Indonesia; beri link GitHub yang bisa langsung diketuk di iPad.
 - Hemat token: baca bab PDF seperlunya, jangan tempel isi PDF di chat.
 - Setelah selesai: perbarui status di `materi/RINGKASAN.md` dan tambahkan pelajaran baru ke bagian "Pelajaran" di atas.
+- Jangan menjalankan/men-dispatch workflow GitHub Actions sendiri, terutama yang memakai ElevenLabs (memakai kuota/biaya akun); selalu minta Yayan menekan tombolnya.
 - Jangan menghapus repo/berkas pengguna tanpa konfirmasi; jangan pernah meminta atau menampilkan kunci API.
 - Pengguna mempertimbangkan menghapus repo lama (video-kimia, Intro-Video-Edukasi, video-remotion, video-edukasi-remotion) — jangan bergantung padanya.

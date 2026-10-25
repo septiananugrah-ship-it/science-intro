@@ -52,3 +52,7 @@ Rincian teknis ada di `CLAUDE.md`; resep video di `.claude/skills/video-sains/SK
 - "You'll get" = tarif dikurangi service fee Upwork (lihat angka di form).
 
 **Portofolio:** unggah video vibrasi, intro SCIENTIAN, dan video atom hidrogen.
+
+## Revisi (Okt 2026)
+- Narasi video baru: **suara klon Yayan** di ElevenLabs, bukan Bagas (video lama Modul 3/4/6 tetap Bagas).
+- Alur git: setelah merge ke `main`, Claude **berhenti**; Yayan sendiri yang menekan Run workflow. Claude hanya memberi link & isian.

@@ -39,11 +39,11 @@ Pembuka (hook) → judul → peta video → **Bagian 1 prinsip & teori dasar** �
 - QA: render still tiap adegan (`scripts/qa-stills.mjs`), cek transisi, cek tidak ada teks terpotong.
 
 ## 5. Suara
-- Narasi ElevenLabs suara **Bagas** (`eleven_v4`, `language_code: id`); kunci API ada di secret GitHub `ELEVENLABS_API_KEY` — jangan pernah minta/menampilkan kunci di chat. Jalankan workflow `voiceover.yml`.
+- Narasi ElevenLabs memakai **suara klon Yayan sendiri** (bukan Bagas; Bagas hanya untuk video lama) — `eleven_v4`, `language_code: id`. Voice ID klon dari akun ElevenLabs Yayan (jangan dikarang; tanyakan bila belum ada). Kunci API ada di secret GitHub `ELEVENLABS_API_KEY` — jangan pernah minta/menampilkan kunci di chat. Workflow `voiceover.yml` **dijalankan Yayan sendiri**, bukan Claude.
 - Selalu sediakan juga versi **tanpa narasi** (musik saja) untuk dubbing pengguna.
 - Musik orisinal via numpy (`make-music.py`), tanpa sampel berlisensi.
 
 ## 6. Kirim ke pengguna
-- Commit ke branch kerja → PR → merge ke `main` (workflow_dispatch butuh `main`) → jalankan workflow → pantau → beri link run + cara unduh (Artifacts, tekan lama di iPad).
+- Commit ke branch kerja → PR → merge ke `main` (workflow_dispatch butuh `main`) → **berhenti dan minta Yayan menekan Run workflow** sendiri (jangan men-dispatch workflow dari Claude, termasuk `voiceover.yml` dan render). Beri link halaman workflow + isian yang harus dipilih; setelah Yayan bilang sudah jalan, baru pantau dan beri cara unduh (Artifacts, tekan lama di iPad).
 - Kirim pratinjau 540p lewat SendUserFile agar bisa ditonton langsung.
 - Sertakan daftar bab bertimecode untuk deskripsi YouTube.
