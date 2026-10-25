@@ -54,6 +54,8 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video; Modul 2 naskah 
 - Angka ukur dari luar modul (λmaks pewarna, penghalang NH₃, dll.) dicek ke sumber primer/katalog **sebelum** narasi direkam; mengubahnya belakangan berarti rekam ulang baris.
 - Peta panas dari ribuan `<rect>` tampak kotak-kotak → buat gambar sekali lewat canvas (`toDataURL`) lalu `<image preserveAspectRatio="none">`.
 - Skrip QA salinan repo lama (`qa-*.mjs`) memanggil `selectComposition` tanpa `browserExecutable` → Remotion mencoba mengunduh Chrome dan gagal di sandbox; tambahkan `browserExecutable` di semua pemanggilan.
+- Kartu rumus yang bergantian di satu posisi: pakai `slot(t, a, b)` (repo video-landasan-kimia-kuantum, `src/anim.ts`) — kartu lama selesai menghilang **sebelum** batas `b`, kartu baru mulai di `b`; `win()` biasa membuat dua kartu bertumpuk sesaat.
+- Cek fisika visual, bukan hanya angka: T̂ sin = +(konstanta)·sin (energi kinetik positif, bukan −sin), jungkat-jungkit miring ke sisi yang lebih berat, luas puncak NMR sebanding jumlah H.
 - `foreignObject` di dalam SVG berguna untuk menaruh rumus HTML (`Op`, `Frac`) di dalam bentuk SVG (mis. kotak "mesin operator").
 - Tanda ⟨ ⟩ tidak ada di font serif/mono label SVG (tampil seperti kurung) → tulis "rata-rata p" atau taruh di kartu HTML.
 
