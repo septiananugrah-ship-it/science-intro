@@ -17,6 +17,7 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 | `septiananugrah-ship-it/video-partikel-kotak` | Video Modul 3 "Partikel dalam Kotak", ±22 menit, 2K, 17 bab, sudah di-polish; komponen `Mesh3D`/`Surface3D` (permukaan 3D), `PacketSim` + `scripts/sim-packet.py` (simulasi Schrödinger bergantung waktu), `ScaleHud`/`ZoomGrid` (zoom ala intro), `Heatmap2D` halus; skrip `contact.py` (lembar kontak QA); catatan `naskah/AUDIT.md`. |
 | `septiananugrah-ship-it/science-intro` (repo ini) | Intro SCIENTIAN 18 dtk (zoom inti atom → galaksi → logo S), materi kuliah di `materi/`, skill `.claude/skills/video-sains/`. |
 | `septiananugrah-ship-it/video-kimia` | Versi lama buatan ChatGPT (pembanding, kualitas gerak kurang). |
+| `septiananugrah-ship-it/video-fisika-energi` | **Seri Fisika Umum #1** "Mata Uang Semesta" — Usaha & Energi, ±26 menit, gaya "Lab Energi" (biru tinta + kisi cetak biru, kode warna energi tetap: K jingga, Ug biru, Us ungu, termal merah, W hijau, F kuning), intro SCIENTIAN dirender otomatis dari repo ini di workflow, outro "Disusun oleh Septian Anugrah Dwi Putra". Seri berikutnya: Fluida Statis, Fluida Dinamis, Momentum (repo baru per materi). |
 
 ## Status materi
 Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutnya: **Modul 5** (rotasi), cadangan Modul 1 (pengantar).
@@ -53,6 +54,10 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutny
 - Angka ukur dari luar modul (λmaks pewarna, penghalang NH₃, dll.) dicek ke sumber primer/katalog **sebelum** narasi direkam; mengubahnya belakangan berarti rekam ulang baris.
 - Peta panas dari ribuan `<rect>` tampak kotak-kotak → buat gambar sekali lewat canvas (`toDataURL`) lalu `<image preserveAspectRatio="none">`.
 - Tanda ⟨ ⟩ tidak ada di font serif/mono label SVG (tampil seperti kurung) → tulis "rata-rata p" atau taruh di kartu HTML.
+- Seri Fisika: pengguna kini **mau** nama "Septian Anugrah Dwi Putra" di outro + SCIENTIAN/"Explore Science with Yayan" (aturan "tanpa nama" lama hanya untuk video kuantum).
+- Kredit ElevenLabs habis → workflow voice-over punya pilihan `mesin: edge` (Edge TTS gratis, `id-ID-ArdiNeural`/`GadisNeural`). Edge TTS **diblokir dari sandbox Claude** (proxy 403), jalan di GitHub Actions.
+- Intro SCIENTIAN tidak perlu diunggah manual: job `intro` di `render-video.yml` meng-checkout repo ini (publik) dan merender `Intro2K`, lalu `assemble.sh` menempelkannya.
+- Banyak adegan dikerjakan paralel oleh beberapa agen (fork) per kelompok adegan; QA terakhir tetap di tangan sesi utama (qa-lines → lembar kontak per 9 still).
 
 ## Aturan untuk sesi baru
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
