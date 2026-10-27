@@ -15,12 +15,13 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 | `septiananugrah-ship-it/Claude-Video-Kimia` | Video "Sidik Jari Molekul" — Modul 4 Gerak Vibrasi, ±16 menit, 2K, narasi ElevenLabs Bagas + versi tanpa narasi. **Template untuk video berikutnya.** |
 | `septiananugrah-ship-it/video-atom-hidrogen` | Video Modul 6 "Atom Hidrogen", ±19 menit, 2K, narasi Bagas + versi tanpa narasi (subtitle tetap ada); rumus `Formula`/`Frac`, skrip QA `qa-audit`/`qa-moments`/`check-cues`. |
 | `septiananugrah-ship-it/video-partikel-kotak` | Video Modul 3 "Partikel dalam Kotak", ±22 menit, 2K, 17 bab, sudah di-polish; komponen `Mesh3D`/`Surface3D` (permukaan 3D), `PacketSim` + `scripts/sim-packet.py` (simulasi Schrödinger bergantung waktu), `ScaleHud`/`ZoomGrid` (zoom ala intro), `Heatmap2D` halus; skrip `contact.py` (lembar kontak QA); catatan `naskah/AUDIT.md`. |
+| `septiananugrah-ship-it/video-landasan-kimia-kuantum` | Video Modul 2 "Aturan Main Kuantum", ±18 menit, 2K, 18 bab; mesin dari video-partikel-kotak; komponen `qm.tsx` (ψ berwarna fase, fasor, paket Gauss analitik), `machine.tsx` (mesin operator), `Sqrt`/`Op`; `scripts/gen-scenes.py` menulis indeks adegan. |
 | `septiananugrah-ship-it/science-intro` (repo ini) | Intro SCIENTIAN 18 dtk (zoom inti atom → galaksi → logo S), materi kuliah di `materi/`, skill `.claude/skills/video-sains/`. |
 | `septiananugrah-ship-it/video-kimia` | Versi lama buatan ChatGPT (pembanding, kualitas gerak kurang). |
 | `septiananugrah-ship-it/video-fisika-energi` | **Seri Fisika Umum #1** "Mata Uang Semesta" — Usaha & Energi, ±26 menit, gaya "Lab Energi" (biru tinta + kisi cetak biru, kode warna energi tetap: K jingga, Ug biru, Us ungu, termal merah, W hijau, F kuning), intro SCIENTIAN dirender otomatis dari repo ini di workflow, outro "Disusun oleh Septian Anugrah Dwi Putra". Seri berikutnya: Fluida Statis, Fluida Dinamis, Momentum (repo baru per materi). |
 
 ## Status materi
-Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutnya: **Modul 5** (rotasi), cadangan Modul 1 (pengantar).
+Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video; Modul 2 naskah & adegan jadi (tinggal narasi + render); Modul 5 dibuat Chika (video-gasing-kuantum). Saran berikutnya: **Modul 1** (pengantar) atau **Modul 7** (simbol term).
 
 ## Cara kerja yang sudah terbukti
 - Remotion 4.0.536, React; semua animasi dari frame (`interpolate`), tanpa animasi CSS. Desain 1920×1080, versi 2K = komposisi pembungkus skala 4/3 (vektor tetap tajam).
@@ -53,6 +54,10 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video. Saran berikutny
 - Whisper small/medium menulis "pi" (π) sebagai "P" dan small sering mendengar "penerowongan" → "penerawangan": alarm palsu; putuskan rekam ulang hanya bila medium juga salah.
 - Angka ukur dari luar modul (λmaks pewarna, penghalang NH₃, dll.) dicek ke sumber primer/katalog **sebelum** narasi direkam; mengubahnya belakangan berarti rekam ulang baris.
 - Peta panas dari ribuan `<rect>` tampak kotak-kotak → buat gambar sekali lewat canvas (`toDataURL`) lalu `<image preserveAspectRatio="none">`.
+- Skrip QA salinan repo lama (`qa-*.mjs`) memanggil `selectComposition` tanpa `browserExecutable` → Remotion mencoba mengunduh Chrome dan gagal di sandbox; tambahkan `browserExecutable` di semua pemanggilan.
+- Kartu rumus yang bergantian di satu posisi: pakai `slot(t, a, b)` (repo video-landasan-kimia-kuantum, `src/anim.ts`) — kartu lama selesai menghilang **sebelum** batas `b`, kartu baru mulai di `b`; `win()` biasa membuat dua kartu bertumpuk sesaat.
+- Cek fisika visual, bukan hanya angka: T̂ sin = +(konstanta)·sin (energi kinetik positif, bukan −sin), jungkat-jungkit miring ke sisi yang lebih berat, luas puncak NMR sebanding jumlah H.
+- `foreignObject` di dalam SVG berguna untuk menaruh rumus HTML (`Op`, `Frac`) di dalam bentuk SVG (mis. kotak "mesin operator").
 - Tanda ⟨ ⟩ tidak ada di font serif/mono label SVG (tampil seperti kurung) → tulis "rata-rata p" atau taruh di kartu HTML.
 - Seri Fisika: pengguna kini **mau** nama "Septian Anugrah Dwi Putra" di outro + SCIENTIAN/"Explore Science with Yayan" (aturan "tanpa nama" lama hanya untuk video kuantum).
 - Kredit ElevenLabs habis → workflow voice-over punya pilihan `mesin: edge` (Edge TTS gratis, `id-ID-ArdiNeural`/`GadisNeural`). Edge TTS **diblokir dari sandbox Claude** (proxy 403), jalan di GitHub Actions.
