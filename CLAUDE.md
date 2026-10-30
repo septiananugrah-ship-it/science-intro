@@ -19,9 +19,12 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 | `septiananugrah-ship-it/science-intro` (repo ini) | Intro SCIENTIAN 18 dtk (zoom inti atom → galaksi → logo S), materi kuliah di `materi/`, skill `.claude/skills/video-sains/`. |
 | `septiananugrah-ship-it/video-kimia` | Versi lama buatan ChatGPT (pembanding, kualitas gerak kurang). |
 | `septiananugrah-ship-it/video-fisika-energi` | **Seri Fisika Umum #1** "Mata Uang Semesta" — Usaha & Energi, ±26 menit, gaya "Lab Energi" (biru tinta + kisi cetak biru, kode warna energi tetap: K jingga, Ug biru, Us ungu, termal merah, W hijau, F kuning), intro SCIENTIAN dirender otomatis dari repo ini di workflow, outro "Disusun oleh Septian Anugrah Dwi Putra". Seri berikutnya: Fluida Statis, Fluida Dinamis, Momentum (repo baru per materi). |
+| `septiananugrah-ship-it/video-fisika-fluida-statis` | **Seri Fisika Umum #2** "Dorongan Tak Terlihat" — Fluida Statis, ±21 menit, 23 adegan, gaya "Lab" bernuansa air (`fluid.tsx`: Water, Tank, PressureArrow…). **Tanpa intro SCIENTIAN terpisah** (pengguna: cukup kapsul logo S + "Explore Science with Yayan" di judul pembuka). Sudah diaudit (qa-lines + uji glitch seluruh film). |
+| `septiananugrah-ship-it/video-fisika-fluida-dinamis` | **Seri Fisika Umum #3** "Arus yang Mengangkat" — Fluida Dinamis, ±17 menit (estimasi), 23 adegan, komponen aliran `flow.tsx` (Pipe sesuai kontinuitas, Streamline, Jet, Smoke); bagian lab kimia: pompa vakum air, Bunsen, nebulizer AAS, viskometer Ostwald. Tanpa intro terpisah. Berikutnya: **Momentum**. |
 
 ## Status materi
 Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video; Modul 2 naskah & adegan jadi (tinggal narasi + render); Modul 5 dibuat Chika (video-gasing-kuantum). Saran berikutnya: **Modul 1** (pengantar) atau **Modul 7** (simbol term).
+Seri Fisika Umum: #1 Usaha & Energi ✓ · #2 Fluida Statis ✓ · #3 Fluida Dinamis (adegan jadi, menunggu merge + render) · berikutnya **#4 Momentum** (repo baru dibuat pengguna). Narasi seri fisika belum direkam (kredit ElevenLabs habis; Sidik Jari v2 sudah memakai suara klon baru `eleven_v4`).
 
 ## Cara kerja yang sudah terbukti
 - Remotion 4.0.536, React; semua animasi dari frame (`interpolate`), tanpa animasi CSS. Desain 1920×1080, versi 2K = komposisi pembungkus skala 4/3 (vektor tetap tajam).
@@ -63,6 +66,11 @@ Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video; Modul 2 naskah 
 - Kredit ElevenLabs habis → workflow voice-over punya pilihan `mesin: edge` (Edge TTS gratis, `id-ID-ArdiNeural`/`GadisNeural`). Edge TTS **diblokir dari sandbox Claude** (proxy 403), jalan di GitHub Actions.
 - Intro SCIENTIAN tidak perlu diunggah manual: job `intro` di `render-video.yml` meng-checkout repo ini (publik) dan merender `Intro2K`, lalu `assemble.sh` menempelkannya.
 - Banyak adegan dikerjakan paralel oleh beberapa agen (fork) per kelompok adegan; QA terakhir tetap di tangan sesi utama (qa-lines → lembar kontak per 9 still).
+- Seri fluida: pengguna **tidak mau** intro SCIENTIAN terpisah lagi ("jelek, cukup di pembuka") → hapus job `intro` dari `render-video.yml`, taruh kapsul logo S + "Explore Science with Yayan" di adegan judul. (Video Usaha & Energi masih memakai intro lama.)
+- Uji glitch seluruh film: lonjakan terbesar = **pergantian halaman subtitle** (teks lama lenyap dalam 1 frame, kapsul melompat ukuran) → `Captions.tsx` sekarang menyilang-pudar halaman lama (teks + kapsul, ±0,16 dtk). Salin `Captions.tsx` versi ini ke repo video baru.
+- 4 agen Opus effort tinggi paralel menghabiskan batas 5 jam pengguna dalam ±15 menit → commit & push WIP dulu, lalu lanjutkan agen yang sama lewat SendMessage setelah reset (pekerjaannya tersimpan). Pengguna paket Team: halaman Usage hanya menampilkan batas 5 jam.
+- `qa-moments.mjs adegan:baris:offset`: offset = detik **setelah** baris mulai (negatif → jatuh ke baris sebelumnya).
+- Folder kerja yang dibuat sebelum repo GitHub ada: `git init -b <branch>`, lalu setelah pengguna membuat repo (sering berisi README awal) → `git remote add` + `git merge origin/main --allow-unrelated-histories -X ours`, push, PR.
 
 ## Aturan untuk sesi baru
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
