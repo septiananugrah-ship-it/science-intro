@@ -21,10 +21,14 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 | `septiananugrah-ship-it/video-fisika-energi` | **Seri Fisika Umum #1** "Mata Uang Semesta" — Usaha & Energi, ±26 menit, gaya "Lab Energi" (biru tinta + kisi cetak biru, kode warna energi tetap: K jingga, Ug biru, Us ungu, termal merah, W hijau, F kuning), intro SCIENTIAN dirender otomatis dari repo ini di workflow, outro "Disusun oleh Septian Anugrah Dwi Putra". Seri berikutnya: Fluida Statis, Fluida Dinamis, Momentum (repo baru per materi). |
 | `septiananugrah-ship-it/video-fisika-fluida-statis` | **Seri Fisika Umum #2** "Dorongan Tak Terlihat" — Fluida Statis, ±21 menit, 23 adegan, gaya "Lab" bernuansa air (`fluid.tsx`: Water, Tank, PressureArrow…). **Tanpa intro SCIENTIAN terpisah** (pengguna: cukup kapsul logo S + "Explore Science with Yayan" di judul pembuka). Sudah diaudit (qa-lines + uji glitch seluruh film). |
 | `septiananugrah-ship-it/video-fisika-fluida-dinamis` | **Seri Fisika Umum #3** "Arus yang Mengangkat" — Fluida Dinamis, ±17 menit (estimasi), 23 adegan, komponen aliran `flow.tsx` (Pipe sesuai kontinuitas, Streamline, Jet, Smoke); bagian lab kimia: pompa vakum air, Bunsen, nebulizer AAS, viskometer Ostwald. Tanpa intro terpisah. Berikutnya: **Momentum**. |
+| `video-fisika-momentum` (repo belum dibuat; folder lokal) | **Seri #4** "Yang Tak Pernah Hilang" — Momentum & Impuls, ±15 menit, 22 adegan; bagian kimia: tekanan gas, teori tumbukan, momentum foton. Sudah diaudit (qa-lines + uji glitch). |
+| `video-fisika-osilasi` (repo belum dibuat) | **Seri #5** "Irama yang Berulang" — Osilasi (RPS minggu 7), ±12,5 menit, 19 adegan; jembatan kuantum: HCl sebagai pegas, IR 2886 cm⁻¹, efek isotop DCl, E = (v+½)hν. Sudah diaudit. |
+| `video-fisika-gelombang` (repo belum dibuat) | **Seri #6** "Getaran yang Berjalan" — Gelombang (RPS minggu 9), ±12 menit, 19 adegan; jembatan kuantum: difraksi sinar-X Bragg, de Broglie, elektron dalam kotak, orbital = gelombang berdiri 3D. Sudah diaudit. |
+| `video-fisika-termofisika` (repo belum dibuat) | **Seri #7** "Ke Mana Panas Pergi" — Termofisika (RPS minggu 10–11), ±12,5 menit, 20 adegan; jembatan kuantum: teori kinetik, Maxwell–Boltzmann, faktor Boltzmann, S = k ln W. Sedang dibangun. |
 
 ## Status materi
 Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video; Modul 2 naskah & adegan jadi (tinggal narasi + render); Modul 5 dibuat Chika (video-gasing-kuantum). Saran berikutnya: **Modul 1** (pengantar) atau **Modul 7** (simbol term).
-Seri Fisika Umum: #1 Usaha & Energi ✓ · #2 Fluida Statis ✓ · #3 Fluida Dinamis (adegan jadi, menunggu merge + render) · berikutnya **#4 Momentum** (repo baru dibuat pengguna). Narasi seri fisika belum direkam (kredit ElevenLabs habis; Sidik Jari v2 sudah memakai suara klon baru `eleven_v4`).
+Seri Fisika Umum (urutan mengikuti RPS Fisika Umum S1 Kimia UNESA, diarahkan sebagai fondasi kimia kuantum): #1 Usaha & Energi ✓ · #2 Fluida Statis ✓ · #3 Fluida Dinamis ✓ · #4 Momentum ✓ · #5 Osilasi ✓ · #6 Gelombang ✓ · #7 Termofisika (dibangun) · berikutnya **Listrik statis & dinamis → Magnet → Fisika Atom (Bohr)**. Folder #4–#7 menunggu pengguna membuat repo GitHub. Narasi seri fisika belum direkam (kredit ElevenLabs habis; Sidik Jari v2 sudah memakai suara klon baru `eleven_v4`).
 
 ## Cara kerja yang sudah terbukti
 - Remotion 4.0.536, React; semua animasi dari frame (`interpolate`), tanpa animasi CSS. Desain 1920×1080, versi 2K = komposisi pembungkus skala 4/3 (vektor tetap tajam).
@@ -71,6 +75,10 @@ Seri Fisika Umum: #1 Usaha & Energi ✓ · #2 Fluida Statis ✓ · #3 Fluida Din
 - 4 agen Opus effort tinggi paralel menghabiskan batas 5 jam pengguna dalam ±15 menit → commit & push WIP dulu, lalu lanjutkan agen yang sama lewat SendMessage setelah reset (pekerjaannya tersimpan). Pengguna paket Team: halaman Usage hanya menampilkan batas 5 jam.
 - `qa-moments.mjs adegan:baris:offset`: offset = detik **setelah** baris mulai (negatif → jatuh ke baris sebelumnya).
 - Folder kerja yang dibuat sebelum repo GitHub ada: `git init -b <branch>`, lalu setelah pengguna membuat repo (sering berisi README awal) → `git remote add` + `git merge origin/main --allow-unrelated-histories -X ours`, push, PR.
+
+- Pengguna minta kerja terus sampai batas pemakaian habis, lalu lanjut otomatis: pasang `send_later` ±3 jam (setelah reset) berisi langkah lanjutan; agen yang terhenti dilanjutkan lewat SendMessage (pekerjaannya tersimpan). Commit WIP sebelum batas.
+- Pipeline video seri baru (±1 jam kerja): `gen_<topik>.py` di scratchpad menulis `src/script.ts` (naskah + `hl` + jeda) → salin repo seri sebelumnya lewat `git archive` → stub adegan, index, brand, ChapterHeading, GHOSTS latar, REFS outro, kode warna, tts, nada musik → AUDIT (cek angka) → 4 agen Opus paralel per kelompok adegan → commit per kelompok → `check-cues` + `qa-lines` (baca semua lembar) → `qa-film` + `qa-glitch`.
+- Setiap video seri fisika punya Bagian 2 "di dunia kimia" yang menjembatani ke kimia kuantum (pengguna tertarik kuantum dan merasa video berbahasa Indonesia langka).
 
 ## Aturan untuk sesi baru
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
