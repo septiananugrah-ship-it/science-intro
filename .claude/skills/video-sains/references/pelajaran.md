@@ -48,3 +48,5 @@
 - Setelah PR `science-intro` di-merge: gabungkan `origin/main` ke branch kerja (merge biasa), jangan force-push.
 - `contact.py … 3` (3 kolom) lebih terbaca daripada 9 kolom.
 - Musik 192 kbps bisa > 25 MB (batas unggah web GitHub) → 128 kbps.
+- Latar terang (video-menulis-ilmiah): tanpa sway sub-piksel, tanpa emoji, warna/tebal tidak boleh berganti di ambang; strike `calc(p% + Npx)` → `N*p px`.
+- Video panjang materi "teks" (menulis ilmiah): komponen `paper.tsx` (TypeText + Seg: stabilo/coret/perbaikan) dan `kit.tsx` (Panel, Item, Pill, Stamp, Fix) membuat adegan aturan cepat dibuat tanpa agen.
