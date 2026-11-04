@@ -8,3 +8,4 @@
 - Setelah suara jadi: minta pengguna menjalankan workflow **Cek pengucapan narasi (Whisper)**. Model `small` banyak alarm palsu ("pi" → "P"); putuskan rekam ulang hanya bila `medium` juga salah.
 - Musik: disintesis numpy (`make-music.py`), loudnorm, 128 kbps; tanpa sampel berlisensi.
 - Pilihan TTS lain bila kredit habis: Google Chirp 3 HD, Fish Audio / MiniMax (klon), Gemini TTS — kunci tetap lewat secret.
+- Model ElevenLabs: `eleven_v4` (standar) atau `eleven_v4_turbo` (≈ separuh kredit, pilihan di semua `voiceover.yml` sejak 4 Nov 2026); `language_code: id` tetap dikirim untuk keduanya.
