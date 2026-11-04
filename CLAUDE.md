@@ -32,6 +32,7 @@ Dokumen serah-terima: semua yang perlu diketahui asisten AI (Claude Code, atau A
 | `video-simbol-term` | Video Modul 7 "Kode Rahasia Atom" — simbol term & aturan seleksi, ±17,5 menit, 24 adegan; benang merah dua garis D natrium. Mesin: Modul 2 + perbaikan seri fisika. Diaudit (qa-lines + glitch). |
 | `video-ikatan-valensi` | Video pertemuan 9 (setelah UTS) "Jabat Tangan Elektron" — teori ikatan valensi, ±14 menit, 22 adegan; Heitler–London, hibridisasi 3D, berakhir di O₂ paramagnetik. Merged. |
 | `video-orbital-molekul` (repo belum dibuat; folder lokal) | Video pertemuan 10 "Elektron Tanpa Alamat" — MOT diatomik, ±13 menit, 19 adegan; LCAO, orde ikatan, O₂ paramagnetik terpecahkan, pencampuran s–p, ion O₂, CO & hemoglobin, HOMO/LUMO, PES N₂, oksigen singlet, Haber–Bosch. Diaudit. |
+| `video-menulis-ilmiah` (repo dibuat pengguna) | Video **"Dari Kepala ke Kertas"** — menulis karya ilmiah dari nol (bukan materi kuliah kuantum), ±28 menit, 38 adegan, 5 bagian: persiapan, sumber & membaca, menyusun (paragraf, kalimat, EYD, tanda baca, angka), mengutip (APA 7, plagiarisme, etika AI), merakit (laporan, hipotesis, tabel, pembahasan, simpulan, artikel, makalah, Word, revisi). Gaya **"Studio Tulis"** terang modern. Contoh berjalan: kubis ungu sebagai indikator. Mesin dari video-orbital-molekul. |
 
 ## Status materi
 Lihat `materi/RINGKASAN.md`. Modul 3, 4, dan 6 sudah jadi video; Modul 2 naskah & adegan jadi (tinggal narasi + render); Modul 5 dibuat Chika (video-gasing-kuantum). Modul 7 jadi (video-simbol-term). Setelah UTS (RPS pertemuan 9–14): VBT (video-ikatan-valensi ✓) → MOT diatomik (video-orbital-molekul ✓) → MOT poliatomik/Hückel → simetri & grup titik → spektroskopi. Pengguna minta **jangan Modul 1/kuantum pengantar dulu**; fokus materi setelah UTS.
@@ -87,6 +88,9 @@ Seri Fisika Umum (urutan mengikuti RPS Fisika Umum S1 Kimia UNESA, diarahkan seb
 - Pipeline video seri baru (±1 jam kerja): `gen_<topik>.py` di scratchpad menulis `src/script.ts` (naskah + `hl` + jeda) → salin repo seri sebelumnya lewat `git archive` → stub adegan, index, brand, ChapterHeading, GHOSTS latar, REFS outro, kode warna, tts, nada musik → AUDIT (cek angka) → 4 agen Opus paralel per kelompok adegan → commit per kelompok → `check-cues` + `qa-lines` (baca semua lembar) → `qa-film` + `qa-glitch`.
 - Mesin `video-landasan-kimia-kuantum` (Modul 2) masih memakai CSS blur di `SceneShell` (Composition.tsx) dan pada `Part` → ganti dengan SceneShell seri fisika (translate + opacity) sebelum dipakai ulang; salin juga `Captions.tsx`, `anim.ts` (EASE lembut, `cyc`), `tts.ts`, `qa-lines`/`qa-film`/`qa-glitch` dari seri fisika.
 - `scripts/contact.py out/x out/x-s 3` (3 kolom) lebih mudah dibaca daripada 9 kolom.
+- Gaya terang: pengguna **tidak suka** kertas krem/bergaris/buram/vignette ("buat sejarah, bikin mata ga nyaman") → pakai latar rata terang + kisi titik tipis + kartu putih bergaris tepi tegas (gaya "Studio Tulis", repo video-menulis-ilmiah).
+- Di latar terang, goyangan halus SceneShell (translate sub-piksel) membuat teks "melompat" 1 px → set sway 0; juga hindari ganti warna/tebal berdasarkan ambang (pakai `interpolateColors`), dan jangan pakai emoji (headless shell tanpa glyph emoji → pakai SVG).
+- Garis coret `calc(p% + 8px)` menyisakan potongan 8 px saat p = 0 → kalikan tambahan px dengan p.
 - Setiap video seri fisika punya Bagian 2 "di dunia kimia" yang menjembatani ke kimia kuantum (pengguna tertarik kuantum dan merasa video berbahasa Indonesia langka).
 
 ## Aturan untuk sesi baru

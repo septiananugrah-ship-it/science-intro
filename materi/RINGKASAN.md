@@ -21,3 +21,6 @@ Catatan: PDF RPS berupa hasil pindai (teks tidak bisa diekstrak).
 - **5**: molekul berputar, tangga energi J(J+1), harmonik sferis berputar, spektrum garis berjarak 2B.
 - **6**: proton–elektron, potensial efektif, awan orbital 1s/2s/2p/3d 3D, elektron jatuh memancarkan foton → garis Balmer merah-hijau-biru-ungu, batas ionisasi.
 - **7**: kotak orbital & panah spin, aturan Hund, diagram transisi yang diizinkan/terlarang.
+
+## Video di luar modul
+- **Dari Kepala ke Kertas** (repo `video-menulis-ilmiah`): menulis karya ilmiah dari nol, ±28 menit, 38 adegan. Naskah & adegan jadi, QA per baris selesai; narasi belum direkam (bisa Edge TTS).
