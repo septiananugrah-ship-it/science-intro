@@ -48,3 +48,12 @@
 - Setelah PR `science-intro` di-merge: gabungkan `origin/main` ke branch kerja (merge biasa), jangan force-push.
 - `contact.py … 3` (3 kolom) lebih terbaca daripada 9 kolom.
 - Musik 192 kbps bisa > 25 MB (batas unggah web GitHub) → 128 kbps.
+- Cek fakta ke sumber primer (akses jaringan terbuka): NIST WebBook (konstanta diatomik Huber–Herzberg), CDMS (≈ 350 molekul antarbintang), NASA, nobelprize.org; tandai kolom "Dicek" di `AUDIT.md` sebelum narasi direkam.
+- Label pembuka di `scripts/export-timeline.ts` jangan ditulis mati (bekas "oven microwave & teleskop radio") — sesuaikan per video.
+- `ramp` beri pengaman `Math.max(b, a + 0.05)`: rentang yang dihitung dari dua kata berbeda bisa terbalik saat jeda narasi bergeser → render error.
+- Kartu penutup di atas kartu rangkuman: teks HTML di bawahnya harus memudar penuh (bukan 0,2), kalau tidak tembus.
+- Edge TTS jalan dari sandbox lewat `edge-tts --proxy $HTTPS_PROXY`; Gemini TTS bagus tapi kuota gratis sangat kecil.
+- Pola yang lolos audit tapi melanggar aturan kemulusan: `opacity={p > 0.01 ? 1 : 0}` pada panah/garis yang tumbuh (kepala panah muncul penuh dalam 1 frame) → `Math.min(1, p * 12)`; `x < 1 ? 1 : nilaiLain` → campur dengan faktor kontinu. Cari dengan `grep -rn "? 1 : 0" src/scenes src/components` sebelum PR.
+- Pengaman `ramp` (b ≤ a) sudah dipasang di semua repo video kuantum & seri fisika (PR kecil per repo) — penting saat narasi direkam karena jeda nyata menggeser `wordOf`.
+- Bahan unggah YouTube per video: `scripts/gen_youtube.py` (skill) menulis `naskah/YOUTUBE.md` — judul & bab dari `BAB_YOUTUBE.txt`, rujukan dari `REFS` di `Outro.tsx`, deskripsi + tag ditulis per video di kamus `V`. Cocokkan deskripsi dengan daftar bab (jangan dari ingatan). Setelah narasi direkam: `npm run timeline` lalu salin ulang bab.
+- `src/Thumbnail.tsx` ikut tersalin saat repo baru dibuat dari repo lama → 8 video seri fisika & 5 video kuantum sempat memakai judul/gambar video lain ("Yang Tak Pernah Hilang", π* + garis natrium). Ganti judul **dan** gambar sesuai topik, lalu render still `Thumbnail` dan lihat sebelum PR.

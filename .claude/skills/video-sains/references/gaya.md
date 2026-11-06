@@ -3,7 +3,7 @@
 ## Mesin mana yang disalin
 | Jenis video | Repo mesin terbaru | Catatan |
 |---|---|---|
-| Kimia Kuantum (gaya Yayan) | `video-simbol-term` → `video-ikatan-valensi` | Mesin Modul 2 + semua perbaikan seri fisika (subtitle silang-pudar, EASE lembut, SceneShell tanpa blur, tts.ts, qa-lines/qa-film/qa-glitch). |
+| Kimia Kuantum (gaya Yayan) | `video-spektroskopi-molekul` (terbaru; rantai: simbol-term → ikatan-valensi → orbital-molekul → orbital-poliatomik → simetri-molekul → spektroskopi) | Mesin Modul 2 + semua perbaikan seri fisika (subtitle silang-pudar, EASE lembut, SceneShell tanpa blur, tts.ts, qa-lines/qa-film/qa-glitch) + `ramp` aman (b ≤ a) + label pembuka bab yang benar. Komponen: vbC (molekul/orbital 3D), moA–D (diagram MO), syA–syD (operasi simetri, mode getaran), spA–spD (`LineSpectrum` dengan opsi `bare`, tangga energi, Boltzmann). Ubah label pembuka di `scripts/export-timeline.ts` untuk tiap video baru. |
 | Seri Fisika Umum ("Lab") | `video-fisika-atom` | Komponen fisika (`physics.tsx`, `flow.tsx`, `fluid.tsx`), merek SCIENTIAN di judul & outro. |
 | Renungan | `video-akhir-zaman` | Gaya "Gulungan Malam". |
 | Video teman | `video-gasing-kuantum` (Chika, terang), `video-ruang-sempit` (Verna, nebula) | Gaya harus beda dari video Yayan. |

@@ -16,7 +16,7 @@
    CHROME_PATH=$CHROME node scripts/qa-film.mjs out/film.mp4 0 99999 0.25
    python3 scripts/qa-glitch.py out/film.mp4 0
    ```
-   Urutkan lonjakan `beda`; ≈ 2 = normal (ganti halaman subtitle). Lonjakan jauh lebih besar → ekstrak frame f−1 dan f, cari pop/loncatan (CSS blur, ganti berdasarkan ambang, elemen muncul mendadak).
+   Urutkan lonjakan `beda`; ≈ 2 = normal (ganti halaman subtitle). Lonjakan jauh lebih besar → ekstrak frame f−1 dan f, cari pop/loncatan (CSS blur, ganti berdasarkan ambang, elemen muncul mendadak). Cara cepat: render kedua frame penuh dengan `npx remotion still <Komp> out/sN.png --frame=N --browser-executable=$CHROME_PATH`, lalu beda piksel per wilayah (numpy). Bila bedanya menyebar di semua garis tipis dengan geser ½ piksel, itu ayunan pelan `SceneShell` (tak terlihat; lonjakan ≈ 3 di adegan penuh garis datar boleh diterima, catat di PR).
 5. Kirim 2–4 lembar kontak terbaik ke pengguna sebagai pratinjau.
 
 Jangan mengedit berkas saat proses bundling berjalan. Dua proses render paralel boleh di mesin 2 inti, lebih tidak.
