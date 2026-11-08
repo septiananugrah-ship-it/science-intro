@@ -90,6 +90,7 @@ Seri Fisika Umum (urutan mengikuti RPS Fisika Umum S1 Kimia UNESA, diarahkan seb
 - Setiap video seri fisika punya Bagian 2 "di dunia kimia" yang menjembatani ke kimia kuantum (pengguna tertarik kuantum dan merasa video berbahasa Indonesia langka).
 
 ## Aturan untuk sesi baru
+- Bila Yayan minta **ide penelitian/skripsi/PKM**: baca `riset/IDE-PENELITIAN.md` (peta 16 topik + ide berbukti) dan `riset/data/literatur-openalex-2026-11.csv`; riset literatur pakai OpenAlex API (tanpa kunci: anggaran harian bersama ±$0,10, satu kueri ≈ $0,001) dan kerjakan sendiri, **jangan pakai agen** (pengguna minta hemat).
 - Bila Yayan minta **belajar/tutor/latihan soal**: baca `belajar/PETA-BELAJAR.md` + `belajar/PROGRES.md`, ikuti "Cara sesi tutor", dan tulis entri progres di akhir sesi.
 - Mulai dengan membaca file ini dan `materi/RINGKASAN.md`; jangan minta pengguna menjelaskan ulang.
 - Untuk video baru pakai skill `video-sains` (paket lengkap: `SKILL.md` + `references/` pipeline, naskah, gaya, adegan, QA, narasi, GitHub, pelajaran + `scripts/new-video.sh` dan `gen_template.py`). Skill ini milik pribadi pengguna (tidak dijual) — perbarui setiap ada cara kerja atau pelajaran baru. Repo video baru dibuat pengguna; minta namanya di awal lalu `add_repo`.
